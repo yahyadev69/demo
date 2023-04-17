@@ -1,0 +1,40 @@
+application:
+  name: demo
+  database:
+    host: ${DB_HOST:localhost}
+    host1: ${DB_HOST:10.2.51.242}
+    port: ${DB_PORT:5432}
+    user: ${DB_USER:postgres}
+    password: postgres
+    db-name: ${DB_NAME:testdb}
+    row-fetch-size: 2000
+    insert-batch-size: 1000
+    clean-up:
+      enabled: false # requires a cmengine datasource
+
+datasources:
+  default:
+    url: jdbc:postgresql://${application.database.host}:${application.database.port}/${application.database.db-name}?reWriteBatchedInserts=true&disableColumnSanitiser=true&defaultRowFetchSize=1000
+    username: ${application.database.user}
+    password: ${application.database.password}
+    driver-class-name: org.postgresql.Driver
+    auto-commit: true
+    maximum-pool-size: 20
+    minimum-idle: 2
+    idle-timeout: 600000
+    pool-name: dsPool
+
+  database1:
+    url: jdbc:postgresql://${application.database.host1}:${application.database.port}/${application.database.db-name}?reWriteBatchedInserts=true&disableColumnSanitiser=true&defaultRowFetchSize=1000
+    username: ${application.database.user}
+    password: ${application.database.password}
+    driver-class-name: org.postgresql.Driver
+    auto-commit: true
+    maximum-pool-size: 20
+    minimum-idle: 2
+    idle-timeout: 600000
+    pool-name: dsPool
+netty:
+  default:
+    allocator:
+      max-order: 3
